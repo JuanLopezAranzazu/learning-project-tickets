@@ -11,11 +11,13 @@ const commentSchema = new Schema(
     user: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: [true, "El usuario es requerido"],
     },
     // Relación con el modelo de tickets
     ticket: {
       type: Schema.Types.ObjectId,
       ref: "ticket",
+      required: [true, "El ticket es requerido"],
     },
   },
   { timestamps: true }

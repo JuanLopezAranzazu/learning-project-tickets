@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -14,10 +15,20 @@ const userSchema = new Schema({
     type: String,
     unique: true,
     required: [true, "El correo es requerido"],
+    validate: {
+      validator: function (value) {
+        return validator.isEmail(value);
+      },
+      message: function () {
+        return "El correo no es válido";
+      },
+    },
   },
   password: {
     type: String,
     required: [true, "La contraseña es requerida"],
+    minlength: 6,
+    maxlength: 128,
   },
   // Relación con el modelo de roles
   role: {

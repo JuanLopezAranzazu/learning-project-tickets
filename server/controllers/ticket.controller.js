@@ -3,7 +3,9 @@ const Ticket = require("./../models/ticket.model");
 
 const findAllTickets = async (req, res, next) => {
   try {
-    const tickets = await Ticket.find({}).populate("user").populate("category");
+    const tickets = await Ticket.find({})
+      .populate("status")
+      .populate("category");
     res.status(200).json(tickets);
   } catch (error) {
     next(error);
@@ -16,7 +18,9 @@ const findAllTicketsByUser = async (req, res, next, userType) => {
     const { userId } = req;
     const searchField =
       userType === "customer" ? "creatorUser" : "assignedUser";
-    const tickets = await Ticket.find({ [searchField]: userId });
+    const tickets = await Ticket.find({ [searchField]: userId })
+      .populate("status")
+      .populate("category");
     res.status(200).json(tickets);
   } catch (error) {
     next(error);
@@ -39,7 +43,7 @@ const findOneTicket = async (req, res, next) => {
     const { id } = params;
     // buscar el ticket
     const ticket = await Ticket.findById(id)
-      .populate("user")
+      .populate("status")
       .populate("category");
     if (!ticket) {
       res

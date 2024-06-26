@@ -15,6 +15,7 @@ const ticketSchema = new Schema(
     creatorUser: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: [true, "El usuario creador es requerido"],
     },
     // Relación con el modelo de users
     assignedUser: {
@@ -25,11 +26,13 @@ const ticketSchema = new Schema(
     category: {
       type: Schema.Types.ObjectId,
       ref: "category",
+      required: [true, "La categoría es requerida"],
     },
     // Relación con el modelo de status
     status: {
       type: Schema.Types.ObjectId,
       ref: "status",
+      required: [true, "El estado es requerido"],
     },
   },
   { timestamps: true }

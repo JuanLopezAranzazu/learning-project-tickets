@@ -3,7 +3,7 @@ const Comment = require("./../models/comment.model");
 
 const findAllComments = async (req, res, next) => {
   try {
-    const comments = await Comment.find({});
+    const comments = await Comment.find({}).populate("user").populate("ticket");
     res.status(200).json(comments);
   } catch (error) {
     next(error);
@@ -15,7 +15,9 @@ const findOneComment = async (req, res, next) => {
     const { params } = req;
     const { id } = params;
     // buscar el comentario
-    const comment = await Comment.findById(id);
+    const comment = await Comment.findById(id)
+      .populate("user")
+      .populate("ticket");
     if (!comment) {
       res
         .status(404)
@@ -51,7 +53,7 @@ const updateComment = async (req, res, next) => {
     if (!comment) {
       res
         .status(404)
-        .json({ message: `La categoria con id ${id} no se encuentra` });
+        .json({ message: `El comentario con id ${id} no se encuentra` });
       return;
     }
     // actualizar el comentario
