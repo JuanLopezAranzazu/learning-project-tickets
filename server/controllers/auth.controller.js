@@ -57,7 +57,15 @@ const userLogin = async (req, res, next) => {
     const token = jwt.sign(user, config.secretKey, {
       expiresIn: config.jwtExpirationTime,
     });
-    res.status(200).json({ token });
+    res.status(200).json({ token, user: foundUser });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const userLogout = async (req, res, next) => {
+  try {
+    res.status(200).json({ message: "Cierre de sesión exitoso" });
   } catch (error) {
     next(error);
   }
@@ -73,4 +81,4 @@ const whoAmI = async (req, res, next) => {
   }
 };
 
-module.exports = { registerUser, userLogin, whoAmI };
+module.exports = { registerUser, userLogin, userLogout, whoAmI };

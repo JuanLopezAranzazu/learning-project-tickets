@@ -14,20 +14,15 @@ const verifyJWT = require("./../middlewares/verifyJWT");
 const verifyRoles = require("./../middlewares/verifyRoles");
 
 // routes
-// api para obtener todas las categorias
-commentRouter.get(
-  "/",
-  verifyJWT,
-  verifyRoles("admin"),
-  findAllComments
-);
-// api para obtener una categoria por id
+// api para obtener todos los comentarios
+commentRouter.get("/", verifyJWT, verifyRoles("admin"), findAllComments);
+// api para obtener un comentario por id
 commentRouter.get("/:id", verifyJWT, verifyRoles("admin"), findOneComment);
-// api para crear una categoria
+// api para crear un comentario
 commentRouter.post("/", verifyJWT, verifyRoles("admin"), createComment);
-// api para actualizar una categoria
+// api para actualizar un comentario
 commentRouter.put("/:id", verifyJWT, verifyRoles("admin"), updateComment);
-// api para eliminar una categoria
+// api para eliminar un comentario
 commentRouter.delete("/:id", verifyJWT, verifyRoles("admin"), deleteComment);
 
 module.exports = commentRouter;

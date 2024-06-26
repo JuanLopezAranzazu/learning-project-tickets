@@ -6,6 +6,7 @@ const {
   registerUser,
   userLogin,
   whoAmI,
+  userLogout,
 } = require("../controllers/auth.controller");
 //middlewares
 const verifyJWT = require("./../middlewares/verifyJWT");
@@ -17,5 +18,7 @@ authRouter.post("/register", registerUser);
 authRouter.post("/login", userLogin);
 // api para obtener la información del usuario autenticado
 authRouter.get("/whoami", verifyJWT, whoAmI);
+// api para cerrar sesión
+authRouter.delete("/logout", verifyJWT, userLogout);
 
 module.exports = authRouter;
