@@ -62,7 +62,7 @@ async function createAdminUser() {
       const newUser = new User({
         email,
         password: hash,
-        roles: [foundRole._id],
+        role: foundRole._id,
         ...rest,
       });
       await newUser.save();

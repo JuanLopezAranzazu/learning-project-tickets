@@ -41,7 +41,7 @@ const userLogin = async (req, res, next) => {
     const { body } = req;
     const { email, password } = body;
     // buscar el usuario en la base de datos
-    const foundUser = await User.findOne({ email }).populate("roles");
+    const foundUser = await User.findOne({ email }).populate("role");
     if (!foundUser) {
       return res.status(401).json({ error: "Error al autenticarse" });
     }
@@ -66,7 +66,7 @@ const userLogin = async (req, res, next) => {
 const whoAmI = async (req, res, next) => {
   try {
     const { userId } = req; // user authenticated
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate("role");
     res.status(200).json(user);
   } catch (error) {
     next(error);
